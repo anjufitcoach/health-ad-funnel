@@ -100,7 +100,7 @@ button:active{
 .faq-q{cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center}
 .faq-q::after{content:'▾';transition:transform .35s}
 .faq-item.open .faq-q::after{transform:rotate(180deg)}
-.faq-a{max-height:0;overflow:hidden;font-size:13px;opacity:.0;margin-top:12px;padding-bottom:6px;line-height:1.6;transform:translateY(-8px);transition:max-height .65s ease,opacity .55s,transform .55s}
+.faq-a{max-height:0;overflow:hidden;font-size:13px;opacity:.0;margin-top:12px;padding-bottom:6px;line-height:1.7;white-space:pre-wrap;transform:translateY(-8px);transition:max-height .65s ease,opacity .55s,transform .55s}
 .faq-item.open .faq-a{opacity:1;transform:translateY(0)}
 /* partial word reveal */
 .faq-a span{opacity:0;display:inline-block;transform:translateY(10px) scale(.98);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
@@ -213,9 +213,9 @@ button:active{
 
 <div class="section-title">Frequently Asked Questions</div>
 <div class="faq">
-<div class="faq-item"><div class="faq-q">Do I need a gym?</div><div class="faq-a">No, all  workouts  are   home   based.</div></div>
-<div class="faq-item"><div class="faq-q">Will diet be Indian food?</div><div class="faq-a">Yes  —  roti ,   rice ,   dal,   sabzi   included.</div></div>
-<div class="faq-item"><div class="faq-q">How fast results?</div><div class="faq-a">Most   clients   notice   change   in   2‑3   weeks.</div></div>
+<div class="faq-item"><div class="faq-q">Do I need a gym?</div><div class="faq-a">No, all workouts are home based.</div></div>
+<div class="faq-item"><div class="faq-q">Will diet be Indian food?</div><div class="faq-a">Yes — roti, rice, dal, sabzi included.</div></div>
+<div class="faq-item"><div class="faq-q">How fast results?</div><div class="faq-a">Most clients notice change in 2‑3 weeks.</div></div>
 </div>
 
 <div class="footer">✔ Confidential • ✔ Personalized • ✔ Result Oriented</div>
@@ -278,11 +278,12 @@ document.querySelectorAll('.testimonial,.badge,.offer').forEach(el=>{
  });
 });
 
-// prepare per-letter reveal spans for FAQ answers
+// prepare per-letter reveal spans for FAQ answers (preserve spaces)
 document.querySelectorAll('.faq-a').forEach(a=>{
-  const text=a.textContent.trim();
+  const text=a.textContent; // do NOT trim to keep spaces
   a.textContent='';
   Array.from(text).forEach((ch,i)=>{
+    if(ch===' '){ a.appendChild(document.createTextNode(' ')); return; }
     const s=document.createElement('span');
     s.textContent=ch;
     s.style.transitionDelay=(i*22)+'ms';
